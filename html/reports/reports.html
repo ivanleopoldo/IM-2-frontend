@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
+    <script defer src="../../js/listeners.js"></script>
+    <script src="../../js/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="../../js/jquery.dataTables.js"></script>
+    <script defer src="../../js/reports.js"></script>
+    <title>Reports - O'Reserve</title>
+</head>
+<body>
+    <div class="header">
+        <div class="main-interface">
+            <div id="home">
+                <a href="../home.html">
+                    <img class="logo" src="../../images/logo.png" alt="Home">
+                </a>
+            </div>
+            <ul class="appbar">
+                <li>
+                    <a href="../home.html">Home</a>
+                </li>
+                <li>
+                    <a href="../search/search_customers.html">Manage</a>
+                </li>
+                <li>
+                    <a href="../reports/reports.html">Reports</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="reports-body">
+        <div class="grid-wrapper">
+            <div class="common-wrapper">
+                <p>Commonly Reserved Time of Day:</p>
+                <div id="result-id" class="result-wrapper">
+                </div>
+            </div>
+            <div class="total-wrapper">
+                <p>Total Customers Since Opening:</p>
+                <div id="result-id" class="result-wrapper">
+                </div>
+            </div>
+            <div class="month-wrapper">
+                <p>Total Customers This Month:</p>
+                <div id="result-id" class="result-wrapper">
+                </div>
+            </div>
+            <div class="year-wrapper">
+                <p>Total Customers This Year:</p>
+                <div id="result-id" class="result-wrapper">
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>copyright&copy;2022</p>
+    </footer>
+</body>
+</html>

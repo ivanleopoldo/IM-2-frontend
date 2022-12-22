@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
+    <script defer src="../../js/listeners.js"></script>
+    <script src="../../js/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="../../js/jquery.dataTables.js"></script>
+    <script defer src="../../js/reservations.js"></script>
+    <title>Search - O'Reserve</title>
+</head>
+<body>
+    <div class="header">
+        <div class="main-interface">
+            <div id="home">
+                <a href="../home.html">
+                    <img class="logo" src="../../images/logo.png" alt="Home">
+                </a>
+            </div>
+            <ul class="appbar">
+                <li>
+                    <a href="../home.html">Home</a>
+                </li>
+                <li>
+                    <a href="../search/search_customers.html" style="color: #f7932f;">Manage</a>
+                </li>
+                <li>
+                    <a href="../reports/reports.html">Reports</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-body">
+        <div class="body-header">
+            <div class="table-selector">
+                <p class="table-selector-placeholder">
+                    Table:
+                </p>
+                <div class="btn-elem">
+                    <a href="./search_customers.html" class="customers-button">
+                        <p>
+                            Customers
+                        </p>
+                    </a>
+                </div>
+                <div class="btn-elem" style="background-color: #f7932f;">
+                    <a href="./search_reservations.html" class="reservations-button">
+                        <p>
+                            Reservations
+                        </p>
+                    </a>
+                </div>
+                <div class="btn-elem">
+                    <a href="./search_tables.html" class="tables-button">
+                        <p>
+                            Tables
+                        </p>
+                    </a>
+                </div>
+                <div class="btn-elem">
+                    <a href="./search_employees.html" class="employees-button">
+                        <p>
+                            Employees
+                        </p>
+                    </a>
+                </div>
+                <div class="btn-elem">
+                    <a href="./search_feedbacks.html" class="feedbacks-button">
+                        <p>
+                            Feedbacks
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="body-middle">
+            <div id="update-form-wrapper-id" class="update-form-wrapper">
+                <input id="update-input-date" type="date" placeholder="Date"/>
+                <br>
+                <input id="update-input-time" type="time" placeholder="Time" />
+                <br>
+                <input id="update-input-party-size" type="number" placeholder="Party Size" />
+                <br>
+                <input id="update-input-customer-id" type="number" placeholder="Customer ID" />
+                <br>
+                <button onclick="updateRecord()">Commit Changes</button>
+            </div>
+            <div id="form-wrapper-id" class="form-wrapper">
+                <input id="input-id" type="number" placeholder="ID" />
+                <br>
+                <input id="input-date" type="date" placeholder="Date"/>
+                <br>
+                <input id="input-time" type="time" placeholder="Time" />
+                <br>
+                <input id="input-customer-id" type="number" placeholder="Customer ID" />
+                <br>
+                <input id="input-first-name" type="text" placeholder="First Name" />
+                <br>
+                <input id="input-last-name" type="text" placeholder="Last Name" />
+                <br>
+                <input id="input-party-size" type="number" placeholder="Party Size" />
+                <br>
+                <button onclick="handleInput()">Search</button>
+                <button onclick="addRecord()">Add</button>
+            </div>
+            <div class="body-tables">
+                <table id="table-style" class="display">
+                    <thead>
+                        <tr>
+                            <td>
+                                ID
+                            </td>
+                            <td>
+                                Created On
+                            </td>
+                            <td>
+                                Date
+                            </td>
+                            <td>
+                                Time
+                            </td>
+                            <td>
+                                Party Size
+                            </td>
+                            <td>
+                                Customer ID
+                            </td>
+                            <td>
+                                First Name
+                            </td>
+                            <td>
+                                Last Name
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>copyright&copy;2022</p>
+    </footer>
+</body>
+</html>
