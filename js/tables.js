@@ -61,6 +61,7 @@ function updateRecord(){
     }).
     then((response) => response.json()).
     then(function(data){
+        alert(data['response']);
         getAllRecords();
     });
 }
@@ -81,7 +82,13 @@ function hide(){
     updateFormTag.style['display'] = "none";
 }
 
+function emptyInput(){
+    document.getElementById('input-id').value = "";
+    document.getElementById('input-type').value = "";
+}
+
 function initTable(dataRes){
+    emptyInput();
     if ($.fn.DataTable.isDataTable('#table-style')){
         $('#table-style').DataTable().destroy();
     };

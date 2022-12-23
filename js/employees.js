@@ -47,6 +47,7 @@ function addRecord(){
         }),
         headers: header
     }).then((response) => response.json()).then(function(data){
+        alert(data['response']);
         getAllRecords();
     });
 }
@@ -162,6 +163,7 @@ function updateRecord(){
     }).
     then((response) => response.json()).
     then(function(data){
+        alert(data['response']);
         getAllRecords();
     });
 }
@@ -170,6 +172,7 @@ function deleteRecord(id){
     fetch(`http://localhost:5000/employees/${id}`, {
         method: 'delete'
     }).then((response) => response.json()).then(function(data){
+        alert(data['response']);
         getAllRecords();
     });
 }
@@ -190,7 +193,16 @@ function hide(){
     updateFormTag.style['display'] = "none";
 }
 
+function emptyInput(){
+    document.getElementById('input-first-name').value = "";
+    document.getElementById('input-last-name').value = "";
+    document.getElementById('input-sex').value = "";
+    document.getElementById('input-phone-number').value = "";
+    document.getElementById('input-position').value = "";
+}
+
 function initTable(dataRes){
+    emptyInput();
     if ($.fn.DataTable.isDataTable('#table-style')){
         $('#table-style').DataTable().destroy();
     };

@@ -1,3 +1,14 @@
+const timeInput = document.getElementById('input-time');
+timeInput.addEventListener('input', (e) => {
+    let hour = e.target.value.split(':')[0]
+    if(parseInt(hour) < 9){
+        hour = "09"
+    } else if (parseInt(hour) > 21){
+        hour = "21"
+    }
+    e.target.value = `${hour}:00`
+})
+
 var header = {
     'Content-Type': 'application/json',
 }
@@ -10,17 +21,23 @@ function handleInput(){
     var inputFirstName = document.getElementById('input-first-name').value;
     var inputLastName = document.getElementById('input-last-name').value;
 
-    if(inputIdValue === "" && inputCustomerId === "" && inputFirstName === "" && inputLastName === ""){
+    if(inputIdValue === "" && inputCustomerId === "" && inputFirstName === "" && inputLastName === "" && inputDateValue === "" && inputTimeValue === ""){
         getAllRecords();
-    } else if(inputIdValue != "" && inputCustomerId === "" && inputFirstName === "" && inputLastName === ""){
+    } else if(inputIdValue != "" && inputCustomerId === "" && inputFirstName === "" && inputLastName === "" && inputDateValue === "" && inputTimeValue === ""){
         getRecordById(inputIdValue);
-    } else if(inputIdValue === "" && inputCustomerId != "" && inputFirstName === "" && inputLastName === ""){
+    } else if(inputIdValue === "" && inputCustomerId != "" && inputFirstName === "" && inputLastName === "" && inputDateValue === "" && inputTimeValue === ""){
         getRecordByCustId(inputCustomerId);
-    } else if(inputIdValue === "" && inputCustomerId === "" && inputFirstName != "" && inputLastName === ""){
+    } else if(inputIdValue === "" && inputCustomerId === "" && inputFirstName != "" && inputLastName === "" && inputDateValue === "" && inputTimeValue === ""){
         getRecordByFirstName(inputFirstName);
-    } else if(inputIdValue === "" && inputCustomerId === "" && inputFirstName === "" && inputLastName != ""){
+    } else if(inputIdValue === "" && inputCustomerId === "" && inputFirstName === "" && inputLastName != "" && inputDateValue === "" && inputTimeValue === ""){
         getRecordByLastName(inputLastName);
-    }
+    } else if(inputIdValue === "" && inputCustomerId === "" && inputFirstName === "" && inputLastName === "" && inputDateValue != "" && inputTimeValue === ""){
+        getRecordByDate(inputDateValue);
+    } else if(inputIdValue === "" && inputCustomerId === "" && inputFirstName === "" && inputLastName === "" && inputDateValue === "" && inputTimeValue != ""){
+        getRecordByTime(inputTimeValue);
+    } else if(inputIdValue === "" && inputCustomerId === "" && inputFirstName === "" && inputLastName === "" && inputDateValue != "" && inputTimeValue != ""){
+        getRecordByDateTime(inputDateValue, inputTimeValue);
+    } 
 }
 
 function addRecord(){
@@ -29,6 +46,8 @@ function addRecord(){
     var inputTimeValue = document.getElementById('input-time').value;
     var inputCustomerId = document.getElementById('input-customer-id').value;
     var inputPartySize = document.getElementById('input-party-size').value;
+
+    console.log(inputDateValue);
 
     fetch('http://localhost:5000/reservations', {
         method: 'post',
@@ -40,6 +59,7 @@ function addRecord(){
         }),
         headers: header
     }).then((response) => response.json()).then(function(data){
+        alert(data['response']);
         getAllRecords();
     });
 }
@@ -60,6 +80,46 @@ function getRecordById(id){
 
 function getRecordByCustId(id){
     fetch(`http://localhost:5000/reservations_cust/${id}`).then((response) => response.json()). 
+        then(function(data){
+            initTable(data['response']);
+        });
+}
+
+function getRecordByDate(date){
+    fetch(`http://localhost:5000/reservations_date`, {
+        method: 'post',
+        body: JSON.stringify({
+            date: date
+        }),
+        headers: header
+    }).then((response) => response.json()).
+        then(function(data){
+            initTable(data['response']);
+        });
+}
+
+function getRecordByTime(time){
+    fetch(`http://localhost:5000/reservations_time`, {
+        method: 'post',
+        body: JSON.stringify({
+            time: time
+        }),
+        headers: header
+    }).then((response) => response.json()).
+        then(function(data){
+            initTable(data['response']);
+        });
+}
+
+function getRecordByDateTime(date, time){
+    fetch('http://localhost:5000/reservations_datetime', {
+        method: 'post',
+        body: JSON.stringify({
+            date: date,
+            time: time
+        }),
+        headers: header
+    }).then((response) => response.json()).
         then(function(data){
             initTable(data['response']);
         });
@@ -120,6 +180,7 @@ function updateRecord(){
     }).
     then((response) => response.json()).
     then(function(data){
+        alert(data['response']);
         getAllRecords();
     });
 }
@@ -128,6 +189,7 @@ function deleteRecord(id){
     fetch(`http://localhost:5000/reservations/${id}`, {
         method: 'delete'
     }).then((response) => response.json()).then(function(data){
+        alert(data['response']);
         getAllRecords();
     });
 }
@@ -148,7 +210,34 @@ function hide(){
     updateFormTag.style['display'] = "none";
 }
 
+function convertSecondstoTime(seconds) {
+    dateObj = new Date(seconds * 1000);
+    hours = dateObj.getUTCHours();
+    minutes = dateObj.getUTCMinutes();
+    seconds = dateObj.getSeconds();
+
+    timeString = hours.toString().padStart(2, '0')
+        + ':' + minutes.toString().padStart(2, '0')
+    
+    return timeString;
+}
+
+function emptyInput(){
+    document.getElementById('input-id').value = "";
+    document.getElementById('input-date').value = "";
+    document.getElementById('input-time').value = "";
+    document.getElementById('input-customer-id').value = "";
+    document.getElementById('input-first-name').value = "";
+    document.getElementById('input-last-name').value = "";
+    document.getElementById('input-party-size').value = "";
+}
+
 function initTable(dataRes){
+    emptyInput();
+    for(let i=0; i< dataRes.length; i++){
+        dataRes[i][3] = convertSecondstoTime(dataRes[i][3]);
+    }
+
     if ($.fn.DataTable.isDataTable('#table-style')){
         $('#table-style').DataTable().destroy();
     };
