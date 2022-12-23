@@ -9,6 +9,17 @@ timeInput.addEventListener('input', (e) => {
     e.target.value = `${hour}:00`
 })
 
+const updateTimeInput = document.getElementById('update-input-time');
+updateTimeInput.addEventListener('input', (e) => {
+    let hour = e.target.value.split(':')[0]
+    if(parseInt(hour) < 9){
+        hour = "09"
+    } else if (parseInt(hour) > 21){
+        hour = "21"
+    }
+    e.target.value = `${hour}:00`
+})
+
 var header = {
     'Content-Type': 'application/json',
 }
@@ -276,7 +287,7 @@ function initTable(dataRes){
 
     $('#table-style tbody').on('click', '.update-btn', function(){
         var data = table.row($(this).parents('tr')).data();
-        pushUpdate(data[0], data[1]);    
+        pushUpdate(data[0], data[1], data[2], data[4], data[3]);    
     });
 }
 
